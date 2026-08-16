@@ -1,397 +1,1262 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Layal & Karim — We're Getting Married</title>
-<meta name="description" content="Join us as we celebrate our wedding — June 12, 2027.">
+  <meta charset="UTF-8">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Alex+Brush&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  >
 
-<link rel="stylesheet" href="css/style.css">
+  <title>Layal & Karim — We're Getting Married</title>
+
+  <meta
+    name="description"
+    content="Join us as we celebrate our wedding — June 12, 2027."
+  >
+
+  <!-- ==========================================================
+       FONTS
+       ========================================================== -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
+
+
 <body class="lock">
 
-<!-- Persistent music control + bottom nav — visible on every
-     screen, matching the reference. -->
-<button id="music-toggle" aria-pressed="false" aria-label="Play background music">
-  <svg class="icon-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18V5l12-2v13M9 18a3 3 0 11-6 0 3 3 0 016 0zM21 16a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-  <svg class="icon-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18V5l12-2v13M9 18a3 3 0 11-6 0 3 3 0 016 0zM21 16a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M3 3l18 18"/></svg>
-</button>
-<audio id="bg-audio" loop preload="none">
-  <source src="assets/audio/song.mp3" type="audio/mpeg">
-</audio>
+  <!-- ==========================================================
+       MUSIC
+       ========================================================== -->
 
-<nav id="bottom-nav" aria-label="Section navigation">
-  <a href="#hero" data-nav="hero" class="is-active">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11.5L12 4l9 7.5"/><path d="M5 10v10h14V10"/></svg>
-    <span>Home</span>
-  </a>
-  <a href="#details" data-nav="details">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="5" width="16" height="16" rx="1.5"/><path d="M4 10h16M8 3v4M16 3v4"/></svg>
-    <span>Details</span>
-  </a>
-  <a href="#schedule" data-nav="schedule">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v4.5l3 2"/></svg>
-    <span>Schedule</span>
-  </a>
-  <a href="#venue" data-nav="venue">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.2A7 7 0 0119 9.8C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.4"/></svg>
-    <span>Venue</span>
-  </a>
-  <a href="#rsvp" data-nav="rsvp">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3.5" y="5.5" width="17" height="13" rx="1.5"/><path d="M4 7l8 6 8-6"/></svg>
-    <span>RSVP</span>
-  </a>
-</nav>
+  <button
+    id="music-toggle"
+    aria-label="Play background music"
+    aria-pressed="false"
+  >
 
-<!-- ============================================================
-     OPENING — ENVELOPE LOCK SCREEN
-     A closed envelope with a wax seal monogram in the center.
-     Tapping the seal/envelope opens it and reveals the hero.
-     ============================================================ -->
-<div id="opening">
-  <div class="opening-bg" aria-hidden="true"></div>
-  <button id="envelope-btn" aria-label="Open the invitation">
-    <span class="envelope">
-      <span class="envelope-back"></span>
-      <span class="envelope-flap">
-        <svg class="sprig sprig-tl" viewBox="0 0 100 140" aria-hidden="true">
-          <path d="M20 4 C 22 44, 32 64, 44 82" class="sprig-stem"/>
-          <ellipse cx="30" cy="62" rx="11" ry="4.5" transform="rotate(40 30 62)" class="sprig-leaf"/>
-          <ellipse cx="40" cy="78" rx="10" ry="4" transform="rotate(15 40 78)" class="sprig-leaf"/>
-          <g class="sprig-bloom"><circle cx="46" cy="86"/><circle cx="38" cy="91"/><circle cx="50" cy="96"/><circle cx="42" cy="100"/></g>
-        </svg>
-        <svg class="sprig sprig-tr" viewBox="0 0 100 140" aria-hidden="true">
-          <path d="M80 4 C 78 44, 68 64, 56 82" class="sprig-stem"/>
-          <ellipse cx="70" cy="62" rx="11" ry="4.5" transform="rotate(-40 70 62)" class="sprig-leaf"/>
-          <ellipse cx="60" cy="78" rx="10" ry="4" transform="rotate(-15 60 78)" class="sprig-leaf"/>
-          <g class="sprig-bloom"><circle cx="54" cy="86"/><circle cx="62" cy="91"/><circle cx="50" cy="96"/><circle cx="58" cy="100"/></g>
-        </svg>
-      </span>
-      <span class="envelope-front"></span>
+    <svg
+      class="icon-on"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.5"
+    >
+      <path d="M9 18V5l12-2v13M9 18a3 3 0 11-6 0 3 3 0 016 0zM21 16a3 3 0 11-6 0 3 3 0 016 0z"/>
+    </svg>
 
-      <span class="envelope-eyebrow">You Are Cordially Invited<br>to the Wedding of</span>
 
-      <svg class="envelope-flourish" viewBox="0 0 80 20" aria-hidden="true">
-        <path d="M4 10h20M56 10h20M30 10c2-5 8-5 10 0-2 5-8 5-10 0z" fill="none" stroke="currentColor" stroke-width="1"/>
-      </svg>
+    <svg
+      class="icon-off"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.5"
+    >
+      <path d="M9 18V5l12-2v13M9 18a3 3 0 11-6 0 3 3 0 016 0zM21 16a3 3 0 11-6 0 3 3 0 016 0z"/>
+      <path d="M3 3l18 18"/>
+    </svg>
 
-      <span class="envelope-seal">
-        <svg viewBox="0 0 64 64" aria-hidden="true">
-          <circle cx="32" cy="32" r="29" class="seal-base"/>
-          <circle cx="32" cy="32" r="24.5" class="seal-ring"/>
-          <g class="seal-notch">
-            <circle cx="32" cy="4.5"/><circle cx="46.8" cy="8.2"/><circle cx="57.5" cy="19"/>
-            <circle cx="61" cy="32"/><circle cx="57.5" cy="45"/><circle cx="46.8" cy="55.8"/>
-            <circle cx="32" cy="59.5"/><circle cx="17.2" cy="55.8"/><circle cx="6.5" cy="45"/>
-            <circle cx="3" cy="32"/><circle cx="6.5" cy="19"/><circle cx="17.2" cy="8.2"/>
-          </g>
-        </svg>
-        <span class="envelope-seal-text">L&amp;K</span>
-      </span>
-
-      <span class="envelope-names">Layal <span class="envelope-amp">&amp;</span> Karim</span>
-      <span class="envelope-card-date">12 &middot; 06 &middot; 2027</span>
-
-      <span class="opening-hint">
-        Tap to Open
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9l6 6 6-6"/></svg>
-      </span>
-    </span>
   </button>
-</div>
 
-<!-- ============================================================
-     PHASE 2 — OPENING / HERO SCREEN
-     (FR-01, FR-09) Full-screen cinematic opening: title, couple
-     names, date, animated scroll cue. This is the ONLY section
-     we are building in this phase — everything else comes after
-     this is approved, per the project roadmap.
-     ============================================================ -->
-<header id="hero">
-  <div class="hero-photo" aria-hidden="true">
-    <img src="assets/images/hero-arch.jpg" alt="">
-  </div>
-  <div class="hero-veil" aria-hidden="true"></div>
 
-  <div class="hero-content">
-    <p class="hero-kicker reveal-1">The Wedding Of</p>
+  <audio
+    id="bg-audio"
+    loop
+    preload="none"
+  >
+    <source
+      src="assets/audio/song.mp3"
+      type="audio/mpeg"
+    >
+  </audio>
 
-    <h1 class="hero-names">
-      <span class="hero-name-script reveal-2">Layal</span>
-      <span class="hero-amp reveal-2" aria-hidden="true">&amp;</span>
-      <span class="hero-name-script reveal-2">Karim</span>
-    </h1>
 
-    <div class="hero-rule reveal-3" aria-hidden="true">
-      <span class="hero-rule-line"></span>
-      <svg viewBox="0 0 24 24" fill="currentColor" class="hero-rule-heart"><path d="M12 21s-7.5-4.6-10.2-9.1C.4 9.1 1.4 5.5 4.7 4.4c2-.7 4.1 0 5.3 1.7 1.2-1.7 3.3-2.4 5.3-1.7 3.3 1.1 4.3 4.7 2.9 7.5C19.5 16.4 12 21 12 21z"/></svg>
-      <span class="hero-rule-line"></span>
+  <!-- ==========================================================
+       OPENING — ENVELOPE
+       ========================================================== -->
+
+  <section id="opening">
+
+    <div class="opening-bg"></div>
+
+
+    <button
+      id="envelope-btn"
+      aria-label="Open the invitation"
+    >
+
+      <span class="envelope">
+
+
+        <!-- BACK -->
+
+        <span class="envelope-back"></span>
+
+
+        <!-- FLAP -->
+
+        <span class="envelope-flap">
+
+          <!-- LEFT FLOWER BRANCH -->
+
+          <svg
+            class="sprig sprig-tl"
+            viewBox="0 0 100 140"
+            aria-hidden="true"
+          >
+
+            <path
+              d="M20 4 C22 44 32 64 44 82"
+              class="sprig-stem"
+            />
+
+            <ellipse
+              cx="30"
+              cy="62"
+              rx="11"
+              ry="4.5"
+              transform="rotate(40 30 62)"
+              class="sprig-leaf"
+            />
+
+            <ellipse
+              cx="40"
+              cy="78"
+              rx="10"
+              ry="4"
+              transform="rotate(15 40 78)"
+              class="sprig-leaf"
+            />
+
+            <g class="sprig-bloom">
+              <circle cx="46" cy="86"/>
+              <circle cx="38" cy="91"/>
+              <circle cx="50" cy="96"/>
+              <circle cx="42" cy="100"/>
+            </g>
+
+          </svg>
+
+
+          <!-- RIGHT FLOWER BRANCH -->
+
+          <svg
+            class="sprig sprig-tr"
+            viewBox="0 0 100 140"
+            aria-hidden="true"
+          >
+
+            <path
+              d="M80 4 C78 44 68 64 56 82"
+              class="sprig-stem"
+            />
+
+            <ellipse
+              cx="70"
+              cy="62"
+              rx="11"
+              ry="4.5"
+              transform="rotate(-40 70 62)"
+              class="sprig-leaf"
+            />
+
+            <ellipse
+              cx="60"
+              cy="78"
+              rx="10"
+              ry="4"
+              transform="rotate(-15 60 78)"
+              class="sprig-leaf"
+            />
+
+            <g class="sprig-bloom">
+              <circle cx="54" cy="86"/>
+              <circle cx="62" cy="91"/>
+              <circle cx="50" cy="96"/>
+              <circle cx="58" cy="100"/>
+            </g>
+
+          </svg>
+
+        </span>
+
+
+        <!-- FRONT -->
+
+        <span class="envelope-front"></span>
+
+
+        <!-- TEXT -->
+
+        <span class="envelope-eyebrow">
+          You Are Cordially Invited
+          <br>
+          to the Wedding of
+        </span>
+
+
+        <!-- ORNAMENT -->
+
+        <svg
+          class="envelope-flourish"
+          viewBox="0 0 80 20"
+          aria-hidden="true"
+        >
+          <path
+            d="M4 10h20M56 10h20M30 10c2-5 8-5 10 0-2 5-8 5-10 0z"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1"
+          />
+        </svg>
+
+
+        <!-- ======================================================
+             OVAL SEAL
+             ====================================================== -->
+
+        <span class="envelope-seal">
+
+          <svg
+            viewBox="0 0 76 62"
+            aria-hidden="true"
+          >
+
+            <ellipse
+              cx="38"
+              cy="31"
+              rx="34"
+              ry="27"
+              class="seal-base"
+            />
+
+            <ellipse
+              cx="38"
+              cy="31"
+              rx="28.5"
+              ry="22"
+              class="seal-ring"
+            />
+
+            <ellipse
+              cx="38"
+              cy="31"
+              rx="24"
+              ry="18"
+              class="seal-inner-ring"
+            />
+
+          </svg>
+
+
+          <span class="envelope-seal-text">
+            L &K
+          </span>
+
+        </span>
+
+
+        <!-- NAMES -->
+
+        <span class="envelope-names">
+          Layal
+          <span>&amp;</span>
+          Karim
+        </span>
+
+
+        <!-- DATE -->
+
+        <span class="envelope-card-date">
+          12 · 06 · 2027
+        </span>
+
+
+        <!-- OPENING CUE -->
+
+        <span class="opening-hint">
+
+          <span class="hint-line"></span>
+
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.4"
+          >
+            <path d="M6 9l6 6 6-6"/>
+          </svg>
+
+        </span>
+
+      </span>
+
+    </button>
+
+  </section>
+
+
+  <!-- ==========================================================
+       HERO
+       ========================================================== -->
+
+  <header id="hero">
+
+    <div class="hero-photo">
+
+      <img
+        src="assets/images/hero-arch.jpg"
+        alt=""
+      >
+
     </div>
 
-    <p class="hero-date reveal-4">12 &middot; 06 &middot; 2027</p>
-    <p class="hero-day reveal-4">Friday</p>
-    <p class="hero-time reveal-4">At 5:00 PM</p>
-  </div>
 
-  <a href="#invitation" class="scroll-cue reveal-5" aria-label="Scroll to see the invitation">
-    <span class="scroll-cue-text">Scroll Down</span>
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="scroll-cue-chevron"><path d="M6 9l6 6 6-6"/></svg>
-  </a>
-</header>
+    <div class="hero-veil"></div>
 
-<!-- ============================================================
-     PHASE 3 — INVITATION CARD
-     The digital equivalent of the printed card: formal wording,
-     centered composition, restrained ornament. Reveals gently as
-     the guest scrolls into view (IntersectionObserver, see script.js).
-     ============================================================ -->
-<main>
-  <section id="invitation" class="invitation">
-    <div class="invitation-card reveal-on-scroll">
-      <span class="invitation-leaf leaf-tl" aria-hidden="true"></span>
-      <span class="invitation-leaf leaf-br" aria-hidden="true"></span>
 
-      <div class="invitation-ornament" aria-hidden="true">
-        <svg viewBox="0 0 120 24" fill="none" stroke="currentColor" stroke-width="1">
-          <path d="M0 12h40M80 12h40"/>
-          <circle cx="60" cy="12" r="5"/>
-        </svg>
-      </div>
+    <div class="hero-content">
 
-      <p class="invitation-eyebrow">Together with their families</p>
-
-      <h2 class="invitation-names">Layal <span class="amp">&amp;</span> Karim</h2>
-
-      <p class="invitation-body">
-        request the pleasure of your company<br>
-        as they celebrate their marriage<br>
-        and the beginning of their life together.
+      <p class="hero-kicker reveal-1">
+        The Wedding Of
       </p>
 
-      <div class="invitation-rule" aria-hidden="true"></div>
 
-      <p class="invitation-thanks">We would be honored to have you with us.</p>
-    </div>
-  </section>
+      <h1 class="hero-names">
 
-<!-- ============================================================
-     PHASE 4 — WEDDING DETAILS + COUNTDOWN
-     Details: day/date/time/venue at a glance. Countdown: live
-     JS timer (see CONFIG + countdown() in script.js).
-     ============================================================ -->
-  <section id="details" class="details">
-    <div class="details-card reveal-on-scroll">
-      <p class="section-eyebrow">The Details</p>
-      <div class="details-flourish" aria-hidden="true">
-        <svg viewBox="0 0 60 14" fill="none" stroke="currentColor" stroke-width="1"><path d="M2 7h16M42 7h16M25 7c1.5-4 8-4 9.5 0-1.5 4-8 4-9.5 0z"/></svg>
+        <span class="hero-name reveal-2">
+          Layal
+        </span>
+
+        <span class="hero-amp reveal-2">
+          &
+        </span>
+
+        <span class="hero-name reveal-2">
+          Karim
+        </span>
+
+      </h1>
+
+
+      <div class="hero-rule reveal-3">
+
+        <span></span>
+
+        <svg
+          viewBox="0 0 24 24"
+          fill="currentColor"
+        >
+          <path d="M12 21s-7.5-4.6-10.2-9.1C.4 9.1 1.4 5.5 4.7 4.4c2-.7 4.1 0 5.3 1.7 1.2-1.7 3.3-2.4 5.3-1.7 3.3 1.1 4.3 4.7 2.9 7.5C19.5 16.4 12 21 12 21z"/>
+        </svg>
+
+        <span></span>
+
       </div>
-      <p class="details-intro">We are so excited to celebrate this special day with you.</p>
 
-      <ul class="details-list">
-        <li>
-          <span class="details-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="5" width="16" height="16" rx="1.5"/><path d="M4 10h16M8 3v4M16 3v4"/></svg>
-          </span>
+
+      <p class="hero-date reveal-4">
+        12 · 06 · 2027
+      </p>
+
+    </div>
+
+
+    <!-- NO TEXT -->
+
+    <a
+      href="#invitation"
+      class="scroll-cue reveal-5"
+      aria-label="Continue"
+    >
+
+      <span class="scroll-cue-line"></span>
+
+      <span class="scroll-cue-arrow">
+
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.4"
+        >
+          <path d="M6 9l6 6 6-6"/>
+        </svg>
+
+      </span>
+
+    </a>
+
+  </header>
+
+
+  <main>
+
+
+    <!-- ========================================================
+         INVITATION / SECOND SECTION
+         ======================================================== -->
+
+    <section
+      id="invitation"
+      class="invitation"
+    >
+
+      <div class="invitation-card reveal-on-scroll">
+
+
+        <div class="invitation-topline">
+
+          <span></span>
+
           <span>
-            <strong>June 12, 2027</strong>
-            <small>Friday</small>
+            THE BEGINNING
           </span>
-        </li>
-        <li>
-          <span class="details-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v4.5l3 2"/></svg>
-          </span>
-          <span>
-            <strong>5:00 PM</strong>
-            <small>Ceremony</small>
-          </span>
-        </li>
-        <li>
-          <span class="details-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 21s-7-6.2-7-11.2A7 7 0 0119 9.8C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.4"/></svg>
-          </span>
-          <span>
-            <strong>Villa Chanaa</strong>
-            <small>Beit Mery, Lebanon</small>
-          </span>
-        </li>
-      </ul>
-    </div>
-  </section>
 
-  <section id="countdown" class="countdown">
-    <div class="reveal-on-scroll">
-      <p class="section-eyebrow light">Counting Down</p>
-      <h2 class="countdown-heading">Until We Say &ldquo;I Do&rdquo;</h2>
+          <span></span>
 
-      <div class="countdown-grid" id="countdown-grid">
-        <div class="countdown-unit">
-          <span class="countdown-circle"><span class="countdown-num" id="cd-days">00</span></span>
-          <span class="countdown-label">Days</span>
         </div>
-        <span class="countdown-sep" aria-hidden="true">&middot;</span>
-        <div class="countdown-unit">
-          <span class="countdown-circle"><span class="countdown-num" id="cd-hours">00</span></span>
-          <span class="countdown-label">Hours</span>
+
+
+        <p class="invitation-pretitle">
+          Together with their families
+        </p>
+
+
+        <h2 class="invitation-names">
+
+          Layal
+
+          <em>&amp;</em>
+
+          Karim
+
+        </h2>
+
+
+        <div class="invitation-date-block">
+
+          <span>12</span>
+
+          <i></i>
+
+          <span>06</span>
+
+          <i></i>
+
+          <span>2027</span>
+
         </div>
-        <span class="countdown-sep" aria-hidden="true">&middot;</span>
-        <div class="countdown-unit">
-          <span class="countdown-circle"><span class="countdown-num" id="cd-mins">00</span></span>
-          <span class="countdown-label">Minutes</span>
+
+
+        <p class="invitation-body">
+          invite you to join them for an evening
+          filled with love, laughter and beautiful
+          memories as they begin their life together.
+        </p>
+
+
+        <div class="invitation-signature">
+          With love
         </div>
-        <span class="countdown-sep" aria-hidden="true">&middot;</span>
-        <div class="countdown-unit">
-          <span class="countdown-circle"><span class="countdown-num" id="cd-secs">00</span></span>
-          <span class="countdown-label">Seconds</span>
-        </div>
+
       </div>
 
-      <p class="countdown-passed" id="countdown-passed" hidden>We're married! Thank you for celebrating with us. 🤍</p>
-    </div>
-  </section>
+    </section>
 
-  <!-- ============================================================
-       PHASE 5 — SCHEDULE + VENUE
-       ============================================================ -->
-  <section id="schedule" class="schedule">
-    <div class="wrap-narrow">
-      <p class="section-eyebrow reveal-on-scroll">A Schedule of Events</p>
 
-      <div class="timeline" id="timeline-list">
-        <div class="timeline-row reveal-on-scroll">
-          <span class="timeline-time">5:00 PM</span>
-          <span class="timeline-dot" aria-hidden="true"></span>
-          <span class="timeline-name">Ceremony</span>
+    <!-- ========================================================
+         DETAILS
+         ======================================================== -->
+
+    <section
+      id="details"
+      class="details"
+    >
+
+      <div class="details-card reveal-on-scroll">
+
+        <p class="section-eyebrow">
+          The Details
+        </p>
+
+
+        <div class="section-ornament">
+
+          <span></span>
+
+          <i>✦</i>
+
+          <span></span>
+
         </div>
-        <div class="timeline-row reveal-on-scroll">
-          <span class="timeline-time">6:30 PM</span>
-          <span class="timeline-dot" aria-hidden="true"></span>
-          <span class="timeline-name">Cocktail Hour</span>
+
+
+        <p class="details-intro">
+          Everything you need to know for our special day.
+        </p>
+
+
+        <div class="details-list">
+
+
+          <!-- DATE -->
+
+          <div class="detail-item">
+
+            <div class="detail-icon">
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.4"
+              >
+
+                <rect
+                  x="4"
+                  y="5"
+                  width="16"
+                  height="16"
+                  rx="1.5"
+                />
+
+                <path d="M4 10h16M8 3v4M16 3v4"/>
+
+              </svg>
+
+            </div>
+
+
+            <div>
+
+              <small>DATE</small>
+
+              <strong>
+                June 12, 2027
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <!-- TIME -->
+
+          <div class="detail-item">
+
+            <div class="detail-icon">
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.4"
+              >
+
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="8.5"
+                />
+
+                <path d="M12 7.5v4.5l3 2"/>
+
+              </svg>
+
+            </div>
+
+
+            <div>
+
+              <small>TIME</small>
+
+              <strong>
+                5:00 PM
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <!-- LOCATION -->
+
+          <div class="detail-item">
+
+            <div class="detail-icon">
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.4"
+              >
+
+                <path d="M12 21s-7-6.2-7-11.2A7 7 0 0119 9.8C19 14.8 12 21 12 21z"/>
+
+                <circle
+                  cx="12"
+                  cy="9.5"
+                  r="2.4"
+                />
+
+              </svg>
+
+            </div>
+
+
+            <div>
+
+              <small>LOCATION</small>
+
+              <strong>
+                Villa Chanaa
+              </strong>
+
+            </div>
+
+          </div>
+
+
         </div>
-        <div class="timeline-row reveal-on-scroll">
-          <span class="timeline-time">8:00 PM</span>
-          <span class="timeline-dot" aria-hidden="true"></span>
-          <span class="timeline-name">Dinner</span>
-        </div>
-        <div class="timeline-row reveal-on-scroll">
-          <span class="timeline-time">10:00 PM</span>
-          <span class="timeline-dot" aria-hidden="true"></span>
-          <span class="timeline-name">Cake &amp; Toasts</span>
-        </div>
-        <div class="timeline-row reveal-on-scroll">
-          <span class="timeline-time">10:30 PM</span>
-          <span class="timeline-dot" aria-hidden="true"></span>
-          <span class="timeline-name">Dancing</span>
-        </div>
+
       </div>
-    </div>
-  </section>
 
-  <section id="venue" class="venue">
-    <div class="wrap-narrow venue-inner reveal-on-scroll">
-      <div class="venue-mark" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 21s-7-6.2-7-11.2A7 7 0 0119 9.8C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.4"/></svg>
+    </section>
+
+
+    <!-- ========================================================
+         COUNTDOWN
+         ======================================================== -->
+
+    <section
+      id="countdown"
+      class="countdown"
+    >
+
+      <div class="countdown-inner reveal-on-scroll">
+
+        <p class="section-eyebrow">
+          Counting Down
+        </p>
+
+
+        <h2>
+          Until We Say “I Do”
+        </h2>
+
+
+        <div
+          id="countdown-grid"
+          class="countdown-grid"
+        >
+
+          <div>
+
+            <strong id="cd-days">
+              00
+            </strong>
+
+            <span>
+              Days
+            </span>
+
+          </div>
+
+
+          <div>
+
+            <strong id="cd-hours">
+              00
+            </strong>
+
+            <span>
+              Hours
+            </span>
+
+          </div>
+
+
+          <div>
+
+            <strong id="cd-mins">
+              00
+            </strong>
+
+            <span>
+              Minutes
+            </span>
+
+          </div>
+
+
+          <div>
+
+            <strong id="cd-secs">
+              00
+            </strong>
+
+            <span>
+              Seconds
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <p
+          id="countdown-passed"
+          hidden
+        >
+          We're married! 🤍
+        </p>
+
       </div>
-      <p class="section-eyebrow">The Venue</p>
-      <h2 class="venue-name">Villa Chanaa</h2>
-      <p class="venue-address">Rue Principale, Beit Mery, Mount Lebanon</p>
-      <a id="directions-link" class="btn-outline" href="#" target="_blank" rel="noopener">
-        Get Directions
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-    </div>
-  </section>
 
-  <!-- ============================================================
-       PHASE 6 — RSVP
-       ============================================================ -->
-  <section id="rsvp" class="rsvp">
-    <div class="wrap-narrow">
+    </section>
+
+
+    <!-- ========================================================
+         SCHEDULE
+         ======================================================== -->
+
+    <section
+      id="schedule"
+      class="schedule"
+    >
+
+      <div class="schedule-inner">
+
+
+        <p class="section-eyebrow reveal-on-scroll">
+          The Evening
+        </p>
+
+
+        <h2 class="schedule-heading reveal-on-scroll">
+          A Celebration in Moments
+        </h2>
+
+
+        <div class="timeline">
+
+
+          <!-- 1 -->
+
+          <article
+            class="timeline-item left reveal-on-scroll"
+          >
+
+            <div class="timeline-content">
+
+              <span class="timeline-time">
+                5:00 PM
+              </span>
+
+              <h3>
+                Ceremony
+              </h3>
+
+              <p>
+                We begin the evening with the moment
+                we've been waiting for.
+              </p>
+
+            </div>
+
+          </article>
+
+
+          <!-- 2 -->
+
+          <article
+            class="timeline-item right reveal-on-scroll"
+          >
+
+            <div class="timeline-content">
+
+              <span class="timeline-time">
+                6:30 PM
+              </span>
+
+              <h3>
+                Cocktail Hour
+              </h3>
+
+              <p>
+                Enjoy drinks, conversation and a
+                beautiful sunset together.
+              </p>
+
+            </div>
+
+          </article>
+
+
+          <!-- 3 -->
+
+          <article
+            class="timeline-item left reveal-on-scroll"
+          >
+
+            <div class="timeline-content">
+
+              <span class="timeline-time">
+                8:00 PM
+              </span>
+
+              <h3>
+                Dinner
+              </h3>
+
+              <p>
+                An evening of good food, warm company
+                and unforgettable memories.
+              </p>
+
+            </div>
+
+          </article>
+
+
+          <!-- 4 -->
+
+          <article
+            class="timeline-item right reveal-on-scroll"
+          >
+
+            <div class="timeline-content">
+
+              <span class="timeline-time">
+                10:00 PM
+              </span>
+
+              <h3>
+                Cake &amp; Toasts
+              </h3>
+
+              <p>
+                A little sweetness, a few words
+                and a lot of love.
+              </p>
+
+            </div>
+
+          </article>
+
+
+          <!-- 5 -->
+
+          <article
+            class="timeline-item left reveal-on-scroll"
+          >
+
+            <div class="timeline-content">
+
+              <span class="timeline-time">
+                10:30 PM
+              </span>
+
+              <h3>
+                Dancing
+              </h3>
+
+              <p>
+                And finally, let's celebrate the night
+                together on the dance floor.
+              </p>
+
+            </div>
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ========================================================
+         VENUE
+         ======================================================== -->
+
+    <section
+      id="venue"
+      class="venue"
+    >
+
+      <div class="venue-inner reveal-on-scroll">
+
+
+        <div class="venue-mark">
+
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.3"
+          >
+
+            <path d="M12 21s-7-6.2-7-11.2A7 7 0 0119 9.8C19 14.8 12 21 12 21z"/>
+
+            <circle
+              cx="12"
+              cy="9.5"
+              r="2.4"
+            />
+
+          </svg>
+
+        </div>
+
+
+        <p class="section-eyebrow">
+          The Venue
+        </p>
+
+
+        <h2>
+          Villa Chanaa
+        </h2>
+
+
+        <p class="venue-address">
+          Rue Principale, Beit Mery, Mount Lebanon
+        </p>
+
+
+        <a
+          id="directions-link"
+          class="venue-button"
+          href="#"
+          target="_blank"
+          rel="noopener"
+        >
+          View Location
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- ========================================================
+         RSVP
+         ======================================================== -->
+
+    <section
+      id="rsvp"
+      class="rsvp"
+    >
+
       <div class="rsvp-card reveal-on-scroll">
-        <p class="section-eyebrow">Kindly Respond</p>
-        <p class="rsvp-deadline">by May 1, 2027</p>
-        <div class="details-flourish" aria-hidden="true">
-          <svg viewBox="0 0 60 14" fill="none" stroke="currentColor" stroke-width="1"><path d="M2 7h16M42 7h16M25 7c1.5-4 8-4 9.5 0-1.5 4-8 4-9.5 0z"/></svg>
-        </div>
 
-        <form id="rsvp-form" novalidate>
 
-          <div class="field" id="name-field">
-            <label class="field-label" for="rsvp-name">Your Name</label>
-            <input type="text" id="rsvp-name" name="name" placeholder="Write your name" autocomplete="name">
-            <p class="error-msg">Please enter your name.</p>
+        <p class="section-eyebrow">
+          We'd Love to Have You
+        </p>
+
+
+        <h2>
+          Will You Join Us?
+        </h2>
+
+
+        <p class="rsvp-note">
+          Kindly let us know by May 1, 2027.
+        </p>
+
+
+        <form
+          id="rsvp-form"
+          novalidate
+        >
+
+
+          <!-- NAME -->
+
+          <div
+            class="field"
+            id="name-field"
+          >
+
+            <label for="rsvp-name">
+              Your Name
+            </label>
+
+
+            <input
+              type="text"
+              id="rsvp-name"
+              name="name"
+              placeholder="Write your name"
+              autocomplete="name"
+            >
+
+
+            <p class="error-msg">
+              Please enter your name.
+            </p>
+
           </div>
 
-          <div class="field" id="attendance-field">
-            <span class="field-label" id="attendance-label">We Hope You'll Be There</span>
-            <div class="radio-row" role="radiogroup" aria-labelledby="attendance-label">
-              <div class="radio-option">
-                <input type="radio" name="attendance" id="att-yes" value="yes">
-                <label for="att-yes"><span class="radio-dot"></span>Yes, I'll be there</label>
-              </div>
-              <div class="radio-option">
-                <input type="radio" name="attendance" id="att-no" value="no">
-                <label for="att-no"><span class="radio-dot"></span>Sadly, I can't</label>
-              </div>
+
+          <!-- ATTENDANCE -->
+
+          <div
+            class="field"
+            id="attendance-field"
+          >
+
+            <span class="field-title">
+              Your Presence
+            </span>
+
+
+            <div class="choice-row">
+
+
+              <label class="choice">
+
+                <input
+                  type="radio"
+                  name="attendance"
+                  value="yes"
+                >
+
+                <span class="choice-circle"></span>
+
+                <span>
+                  I'll be there
+                </span>
+
+              </label>
+
+
+              <label class="choice">
+
+                <input
+                  type="radio"
+                  name="attendance"
+                  value="no"
+                >
+
+                <span class="choice-circle"></span>
+
+                <span>
+                  I'm unable to attend
+                </span>
+
+              </label>
+
+
             </div>
-            <p class="error-msg">Please let us know if you can attend.</p>
+
+
+            <p class="error-msg">
+              Please let us know.
+            </p>
+
           </div>
 
-          <div class="field" id="guest-count-field">
-            <span class="field-label" id="guests-label">Number of Guests</span>
-            <div class="radio-row guests" role="radiogroup" aria-labelledby="guests-label">
-              <div class="radio-option">
-                <input type="radio" name="guests" id="guests-1" value="1">
-                <label for="guests-1"><span class="radio-dot"></span>1</label>
-              </div>
-              <div class="radio-option">
-                <input type="radio" name="guests" id="guests-2" value="2">
-                <label for="guests-2"><span class="radio-dot"></span>2</label>
-              </div>
-              <div class="radio-option">
-                <input type="radio" name="guests" id="guests-3" value="3">
-                <label for="guests-3"><span class="radio-dot"></span>3</label>
-              </div>
+
+          <!-- GUESTS -->
+
+          <div
+            class="field guests-field"
+            id="guest-count-field"
+          >
+
+            <span class="field-title">
+              Number of Guests
+            </span>
+
+
+            <div class="choice-row guest-row">
+
+
+              <label class="choice">
+
+                <input
+                  type="radio"
+                  name="guests"
+                  value="1"
+                >
+
+                <span class="choice-circle"></span>
+
+                <span>1</span>
+
+              </label>
+
+
+              <label class="choice">
+
+                <input
+                  type="radio"
+                  name="guests"
+                  value="2"
+                >
+
+                <span class="choice-circle"></span>
+
+                <span>2</span>
+
+              </label>
+
+
+              <label class="choice">
+
+                <input
+                  type="radio"
+                  name="guests"
+                  value="3"
+                >
+
+                <span class="choice-circle"></span>
+
+                <span>3</span>
+
+              </label>
+
+
             </div>
-            <p class="error-msg">Please select how many guests, up to 3.</p>
+
+
+            <p class="error-msg">
+              Please select the number of guests.
+            </p>
+
           </div>
 
-          <button type="submit" class="rsvp-submit" id="rsvp-submit">
-            <span id="rsvp-submit-text">Send My RSVP</span>
+
+          <!-- BUTTON -->
+
+          <button
+            type="submit"
+            id="rsvp-submit"
+            class="confirm-button"
+          >
+
+            <span id="rsvp-submit-text">
+              Confirm Your Presence
+            </span>
+
             <span class="rsvp-loading-dot"></span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+
           </button>
+
+
         </form>
 
-        <div class="rsvp-success" id="rsvp-success">
-          <svg class="heart" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-10.2-9.1C.4 9.1 1.4 5.5 4.7 4.4c2-.7 4.1 0 5.3 1.7 1.2-1.7 3.3-2.4 5.3-1.7 3.3 1.1 4.3 4.7 2.9 7.5C19.5 16.4 12 21 12 21z"/></svg>
-          <h3>Thank You!</h3>
-          <p id="rsvp-success-msg">We can't wait to celebrate with you.</p>
+
+        <!-- SUCCESS -->
+
+        <div
+          id="rsvp-success"
+          class="rsvp-success"
+        >
+
+          <div class="success-heart" aria-hidden="true">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.35"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z"
+              />
+            </svg>
+          </div>
+
+          <h3>
+            Thank You
+          </h3>
+
+
+          <p id="rsvp-success-msg">
+            We can't wait to celebrate with you.
+          </p>
+
         </div>
+
       </div>
+
+    </section>
+
+
+  </main>
+
+
+  <!-- ==========================================================
+       FOOTER / CLOSING
+       ========================================================== -->
+
+  <footer id="closing">
+
+    <div class="closing-inner reveal-on-scroll">
+
+
+      <div class="closing-ornament">
+
+        <span></span>
+
+        <i>✦</i>
+
+        <span></span>
+
+      </div>
+
+
+      <p class="closing-message">
+        With all our love
+      </p>
+
+
+      <h2 class="closing-names">
+
+        Layal
+
+        <span>&amp;</span>
+
+        Karim
+
+      </h2>
+
+
+      <p class="closing-date">
+        12 · 06 · 2027
+      </p>
+
+
     </div>
-  </section>
 
-<!-- ============================================================
-     PHASE 8 — CLOSING
-     ============================================================ -->
-</main>
+  </footer>
 
-<footer id="closing" class="closing">
-  <div class="closing-inner reveal-on-scroll">
-    <div class="invitation-ornament small" aria-hidden="true">
-      <svg viewBox="0 0 120 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M0 12h40M80 12h40"/><circle cx="60" cy="12" r="5"/></svg>
-    </div>
-    <p class="closing-msg">With all our love and gratitude,</p>
-    <h2 class="closing-names">Layal <span class="amp">&amp;</span> Karim</h2>
-    <p class="closing-date">June 12, 2027 · Beit Mery, Lebanon</p>
-  </div>
-</footer>
 
-<script src="js/script.js"></script>
+  <!-- JS -->
+  <script src="js/script.js"></script>
+
 </body>
 </html>
