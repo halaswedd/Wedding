@@ -1,0 +1,732 @@
+/* ============================================================
+   PHASE 1 — VISUAL FOUNDATION
+   Palette + typography, per the project's design direction.
+   Ivory dominates; blush and champagne support; brown/burgundy
+   provide contrast. Do not use the accents in equal amounts.
+   ============================================================ */
+:root{
+  --ivory:#F8F1E7;
+  --blush:#E9D2CE;
+  --champagne:#D6BE9E;
+  --brown:#4A3826;
+  --burgundy:#A9804A;
+  --burgundy-deep:#8C6A3D;
+  --active:#C17D3E;
+  --white:#FFFFFF;
+
+  --font-display:'Cormorant Garamond', serif;
+  --font-body:'DM Sans', sans-serif;
+
+  --ease:cubic-bezier(.4,0,.2,1);
+  --dur-fast:260ms;
+  --dur-med:650ms;
+  --dur-slow:1200ms;
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important; }
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{
+  margin:0;
+  background:var(--ivory);
+  color:var(--brown);
+  font-family:var(--font-body);
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+a{ color:inherit; text-decoration:none; }
+button{ font-family:inherit; cursor:pointer; }
+body.lock{ overflow:hidden; height:100vh; }
+
+a:focus-visible, button:focus-visible{
+  outline:2px solid var(--burgundy); outline-offset:3px;
+}
+
+/* ============================================================
+   OPENING — ENVELOPE LOCK SCREEN
+   ============================================================ */
+#opening{
+  position:fixed; inset:0; z-index:100;
+  display:flex; align-items:center; justify-content:center;
+  transition:opacity 900ms var(--ease), visibility 900ms var(--ease);
+}
+#opening.is-open{ opacity:0; visibility:hidden; pointer-events:none; }
+
+.opening-bg{
+  position:absolute; inset:0; z-index:0;
+  background:
+    radial-gradient(ellipse 60% 45% at 50% 15%, rgba(214,190,158,0.5), transparent 60%),
+    radial-gradient(ellipse 70% 55% at 20% 100%, rgba(233,210,206,0.6), transparent 60%),
+    radial-gradient(ellipse 70% 55% at 85% 100%, rgba(233,210,206,0.45), transparent 60%),
+    linear-gradient(180deg, var(--ivory), #F3E8E0 60%, var(--ivory));
+}
+
+#envelope-btn{
+  position:relative; z-index:1;
+  background:none; border:none; padding:0;
+  display:flex; flex-direction:column; align-items:center; gap:22px;
+}
+
+.envelope{
+  position:relative;
+  width:min(80vw, 320px);
+  aspect-ratio:0.62;
+  transition:transform var(--dur-med) var(--ease);
+}
+#envelope-btn:hover .envelope{ transform:translateY(-3px); }
+
+.envelope-back, .envelope-front{
+  position:absolute; inset:0;
+  background:var(--white);
+  border:1px solid rgba(90,48,54,0.16);
+  border-radius:3px;
+  box-shadow:0 30px 60px -28px rgba(63,45,43,0.35);
+}
+.envelope-front{
+  clip-path:polygon(0 100%, 50% 42%, 100% 100%);
+  z-index:2;
+}
+.envelope-flap{
+  position:absolute; top:0; left:0; width:100%; height:100%;
+  background:linear-gradient(160deg, var(--white), #FBF3EE 130%);
+  border:1px solid rgba(90,48,54,0.16);
+  clip-path:polygon(0 0, 50% 52%, 100% 0);
+  transform-origin:top center;
+  transition:transform 900ms var(--ease);
+  z-index:3;
+  border-radius:3px 3px 0 0;
+  overflow:hidden;
+}
+#opening.is-opening .envelope-flap{ transform:rotateX(178deg); }
+
+/* Delicate botanical sprigs in the top corners — echoes the
+   embossed floral envelopes in the reference. */
+.sprig{ position:absolute; width:44px; height:auto; opacity:0.5; }
+.sprig-tl{ top:8px; left:12px; }
+.sprig-tr{ top:8px; right:12px; transform:scaleX(-1); }
+.sprig-stem{ fill:none; stroke:var(--champagne); stroke-width:1.4; stroke-linecap:round; }
+.sprig-leaf{ fill:var(--champagne); opacity:0.55; }
+.sprig-bloom circle{ r:4.5px; fill:var(--burgundy); opacity:0.5; }
+
+/* Text printed on the card face, all fading out together as the
+   envelope opens (see #opening.is-open on the parent). */
+.envelope-eyebrow{
+  position:absolute; top:13%; left:0; right:0; z-index:5;
+  text-align:center; font-size:10.5px; letter-spacing:0.14em; text-transform:uppercase;
+  color:var(--burgundy); font-weight:600; line-height:1.6;
+}
+.envelope-flourish{
+  position:absolute; top:26%; left:50%; transform:translateX(-50%); z-index:5;
+  width:60px; height:15px; color:var(--champagne);
+}
+
+.envelope-seal{
+  position:absolute; top:47%; left:50%;
+  transform:translate(-50%,-50%);
+  width:64px; height:64px;
+  z-index:4;
+  display:flex; align-items:center; justify-content:center;
+  transition:opacity 400ms var(--ease), transform 400ms var(--ease);
+}
+#opening.is-opening .envelope-seal{ opacity:0; transform:translate(-50%,-50%) scale(0.7); }
+.envelope-seal svg{
+  position:absolute; inset:0; width:100%; height:100%;
+  overflow:visible;
+}
+.seal-base{ fill:var(--burgundy); filter:drop-shadow(0 6px 10px rgba(90,48,54,0.4)); }
+.seal-notch circle{ r:4px; fill:var(--burgundy); }
+.seal-ring{ fill:none; stroke:rgba(255,255,255,0.3); stroke-width:1; }
+.envelope-seal-text{
+  position:relative; z-index:1;
+  font-family:var(--font-display); font-style:italic; font-size:19px;
+  color:var(--ivory);
+}
+.envelope-seal::after{
+  content:'';
+  position:absolute; inset:6px; border-radius:50%;
+  background:radial-gradient(circle at 32% 28%, rgba(255,255,255,0.28), transparent 55%);
+  pointer-events:none;
+}
+
+.envelope-names{
+  position:absolute; top:64%; left:0; right:0; z-index:5;
+  text-align:center;
+  font-family:'Alex Brush', cursive; font-size:30px; color:var(--burgundy);
+}
+.envelope-amp{ font-size:0.7em; margin:0 2px; }
+
+.envelope-card-date{
+  position:absolute; top:75%; left:0; right:0; z-index:5;
+  text-align:center; font-size:11.5px; letter-spacing:0.14em;
+  color:var(--brown); opacity:0.7;
+}
+
+.opening-hint{
+  position:absolute; bottom:6%; left:0; right:0; z-index:5;
+  display:flex; flex-direction:column; align-items:center; gap:4px;
+  font-size:10px; letter-spacing:0.22em; text-transform:uppercase;
+  color:var(--burgundy); font-weight:600; opacity:0.85;
+  animation:hintPulse 2.2s ease-in-out infinite;
+}
+.opening-hint svg{ width:13px; height:13px; }
+@keyframes hintPulse{ 0%,100%{ opacity:0.5; } 50%{ opacity:0.95; } }
+
+/* ============================================================
+   PHASE 2 — HERO / OPENING SCREEN
+   ============================================================ */
+#hero{
+  position:relative;
+  min-height:100svh;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center;
+  overflow:hidden;
+  padding:32px 20px;
+}
+
+/* Real photo background — the arch window + curtain photo the
+   couple supplied. Swap assets/images/hero-arch.jpg for a real
+   engagement photo at the same aspect ratio whenever you like. */
+.hero-photo{
+  position:absolute; inset:0; z-index:0;
+  overflow:hidden;
+}
+.hero-photo img{
+  width:100%; height:100%; object-fit:cover; object-position:center 30%;
+  transform:scale(1.05);
+  animation:heroDrift 26s ease-in-out infinite alternate;
+}
+@keyframes heroDrift{
+  from{ transform:scale(1.05) translateY(0); }
+  to{ transform:scale(1.1) translateY(-1.5%); }
+}
+
+/* Soft veil so the ivory/burgundy text stays legible over the photo */
+.hero-veil{
+  position:absolute; inset:0; z-index:1;
+  background:
+    linear-gradient(180deg, rgba(247,240,235,0.12) 0%, rgba(247,240,235,0.05) 35%, rgba(63,45,43,0.28) 100%),
+    radial-gradient(ellipse 70% 55% at 50% 42%, rgba(247,240,235,0.18), transparent 60%);
+  pointer-events:none;
+}
+
+.hero-content{ position:relative; z-index:2; max-width:640px; }
+
+.hero-kicker{
+  font-family:var(--font-body);
+  font-size:12.5px;
+  letter-spacing:0.3em;
+  text-transform:uppercase;
+  color:var(--white);
+  font-weight:600;
+  margin:0 0 18px;
+  text-shadow:0 2px 12px rgba(63,45,43,0.35);
+}
+
+.hero-names{
+  margin:0;
+  font-family:var(--font-display);
+  font-style:italic;
+  font-weight:500;
+  font-size:clamp(48px, 12vw, 92px);
+  line-height:1.05;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:0.28em;
+  flex-wrap:wrap;
+  color:var(--white);
+}
+.hero-name-script{
+  font-family:'Alex Brush', cursive;
+  font-style:normal;
+  line-height:1;
+  text-shadow:0 4px 20px rgba(63,45,43,0.3);
+}
+.hero-amp{
+  color:var(--champagne);
+  font-size:0.5em;
+  font-family:var(--font-display); font-style:italic;
+  position:relative;
+  top:0.1em;
+}
+
+.hero-rule{
+  display:flex; align-items:center; justify-content:center; gap:14px;
+  margin:24px auto;
+}
+.hero-rule-line{ width:34px; height:1px; background:rgba(255,255,255,0.55); }
+.hero-rule-heart{ width:13px; height:13px; color:var(--champagne); }
+
+.hero-date, .hero-day, .hero-time{
+  margin:0;
+  font-size:14px;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  font-weight:600;
+  color:var(--white);
+  text-shadow:0 2px 10px rgba(63,45,43,0.3);
+}
+.hero-date{ font-size:16px; margin-bottom:6px; }
+.hero-day{ opacity:0.9; margin-bottom:2px; }
+.hero-time{ opacity:0.8; font-weight:500; letter-spacing:0.14em; }
+
+/* Entry reveal choreography — each element fades/lifts in with
+   a short stagger, per the animation requirements. */
+.reveal-1, .reveal-2, .reveal-3, .reveal-4, .reveal-5{
+  opacity:0; transform:translateY(16px);
+  animation:heroReveal var(--dur-med) var(--ease) forwards;
+}
+.reveal-1{ animation-delay:150ms; }
+.reveal-2{ animation-delay:420ms; }
+.hero-names .reveal-2:nth-child(1){ animation-delay:420ms; }
+.hero-names .reveal-2:nth-child(2){ animation-delay:520ms; }
+.hero-names .reveal-2:nth-child(3){ animation-delay:620ms; }
+.reveal-3{ animation-delay:900ms; }
+.reveal-4{ animation-delay:1050ms; }
+.reveal-4:nth-of-type(2){ animation-delay:1150ms; }
+.reveal-4:nth-of-type(3){ animation-delay:1250ms; }
+.reveal-5{ animation-delay:1500ms; }
+
+@keyframes heroReveal{
+  to{ opacity:1; transform:translateY(0); }
+}
+
+/* Scroll cue — small continuous pulse, never distracting */
+.scroll-cue{
+  position:absolute; left:50%; bottom:30px; z-index:2;
+  transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:6px;
+  color:var(--white);
+}
+.scroll-cue-text{
+  font-size:10.5px; letter-spacing:0.24em; text-transform:uppercase; color:var(--white); opacity:0.85;
+  text-shadow:0 2px 8px rgba(63,45,43,0.3);
+}
+.scroll-cue-chevron{
+  width:16px; height:16px;
+  animation:chevronBounce 1.8s var(--ease) infinite;
+}
+@keyframes chevronBounce{
+  0%,100%{ transform:translateY(0); opacity:0.6; }
+  50%{ transform:translateY(5px); opacity:1; }
+}
+
+/* Music toggle — small, unobtrusive, user-controlled (FR-08).
+   Fixed at the page level so it's visible on every screen,
+   including the closed envelope, matching the reference. */
+#music-toggle{
+  position:fixed; top:20px; right:20px; z-index:110;
+  width:42px; height:42px;
+  border:1px solid rgba(74,56,38,0.25);
+  border-radius:50%;
+  background:rgba(255,255,255,0.55);
+  backdrop-filter:blur(6px);
+  display:flex; align-items:center; justify-content:center;
+  color:var(--brown);
+  box-shadow:0 6px 16px -8px rgba(74,56,38,0.25);
+  transition:background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+}
+#music-toggle:hover{ background:var(--white); border-color:var(--champagne); }
+#music-toggle:active{ transform:scale(0.94); }
+#music-toggle svg{ width:17px; height:17px; }
+#music-toggle .icon-off{ display:block; }
+#music-toggle .icon-on{ display:none; }
+#music-toggle[aria-pressed="true"] .icon-off{ display:none; }
+#music-toggle[aria-pressed="true"] .icon-on{ display:block; }
+#music-toggle[aria-pressed="true"]{ border-color:var(--burgundy); color:var(--burgundy); }
+
+/* ============================================================
+   BOTTOM NAVIGATION — persistent tab bar (FR-03 optional anchor nav)
+   ============================================================ */
+#bottom-nav{
+  position:fixed; left:0; right:0; bottom:0; z-index:60;
+  display:flex; justify-content:space-around; align-items:center;
+  background:rgba(248,241,231,0.94);
+  backdrop-filter:blur(10px);
+  border-top:1px solid rgba(169,128,74,0.2);
+  padding:10px 6px calc(10px + env(safe-area-inset-bottom));
+  opacity:0; visibility:hidden; transform:translateY(8px);
+  transition:opacity var(--dur-med) var(--ease), visibility var(--dur-med) var(--ease), transform var(--dur-med) var(--ease);
+}
+#bottom-nav.is-ready{ opacity:1; visibility:visible; transform:translateY(0); }
+#bottom-nav a{
+  display:flex; flex-direction:column; align-items:center; gap:4px;
+  color:rgba(74,56,38,0.5);
+  flex:1;
+  padding:4px 2px;
+}
+#bottom-nav a svg{ width:19px; height:19px; transition:transform var(--dur-fast) var(--ease); }
+#bottom-nav a span{ font-size:9.5px; letter-spacing:0.04em; font-weight:600; text-transform:uppercase; }
+#bottom-nav a.is-active{ color:var(--active); }
+#bottom-nav a.is-active svg{ transform:translateY(-1px); }
+
+/* Temporary placeholder so the scroll cue has somewhere to land
+   until the next section is built. Will be replaced each phase. */
+.section-placeholder{
+  min-height:60vh;
+  display:flex; align-items:center; justify-content:center;
+  padding:60px 24px; text-align:center;
+  color:rgba(63,45,43,0.45);
+  font-style:italic; font-family:var(--font-display); font-size:20px;
+}
+
+/* ============================================================
+   PHASE 3 — INVITATION CARD
+   ============================================================ */
+.invitation{
+  padding:110px 20px;
+  display:flex; justify-content:center;
+  background:
+    radial-gradient(ellipse 60% 40% at 50% 0%, rgba(214,190,158,0.25), transparent 65%),
+    var(--ivory);
+}
+
+.invitation-card{
+  max-width:480px;
+  width:100%;
+  text-align:center;
+  background:var(--white);
+  border:1px solid var(--champagne);
+  border-radius:50% / 20%;
+  padding:100px 46px;
+  box-shadow:0 30px 60px -30px rgba(63,45,43,0.20);
+  position:relative;
+}
+@media(min-width:640px){ .invitation-card{ padding:120px 74px; } }
+@media(max-width:420px){ .invitation-card{ border-radius:50% / 26%; padding:88px 26px; } }
+
+.invitation-leaf{
+  position:absolute; width:64px; height:64px; opacity:0.55; pointer-events:none;
+  color:var(--champagne);
+}
+.invitation-leaf::before{
+  content:'';
+  position:absolute; inset:0;
+  background:
+    radial-gradient(circle at 30% 30%, var(--champagne), transparent 60%),
+    radial-gradient(circle at 60% 60%, var(--blush), transparent 55%);
+  border-radius:50% 10% 50% 10%;
+  opacity:0.5;
+}
+.leaf-tl{ top:22px; left:22px; transform:rotate(-15deg); }
+.leaf-br{ bottom:22px; right:22px; transform:rotate(165deg); }
+@media(max-width:420px){ .invitation-leaf{ width:44px; height:44px; } }
+
+.invitation-ornament{
+  width:100px; margin:0 auto 26px; color:var(--champagne);
+}
+
+.invitation-eyebrow{
+  font-size:12.5px; letter-spacing:0.2em; text-transform:uppercase;
+  color:var(--burgundy); font-weight:600; margin:0 0 18px;
+}
+
+.invitation-names{
+  font-family:var(--font-display); font-style:italic; font-weight:500;
+  font-size:clamp(34px,6vw,46px);
+  margin:0 0 26px;
+  color:var(--brown);
+}
+.invitation-names .amp{ color:var(--burgundy); font-size:0.85em; }
+
+.invitation-body{
+  font-size:17px; line-height:1.85; color:var(--brown);
+  margin:0 0 30px;
+}
+
+.invitation-rule{
+  width:44px; height:1px; background:var(--champagne); margin:0 auto 22px;
+}
+
+.invitation-thanks{
+  font-family:var(--font-display); font-style:italic; font-size:19px;
+  color:var(--burgundy); margin:0;
+}
+
+/* Generic scroll-reveal utility, used from Phase 3 onward */
+.reveal-on-scroll{
+  opacity:0; transform:translateY(28px);
+  transition:opacity var(--dur-med) var(--ease), transform var(--dur-med) var(--ease);
+}
+.reveal-on-scroll.is-visible{ opacity:1; transform:translateY(0); }
+
+/* Shared section label, reused from Phase 4 onward */
+.section-eyebrow{
+  font-size:12.5px; letter-spacing:0.22em; text-transform:uppercase;
+  color:var(--burgundy); font-weight:600; text-align:center; margin:0 0 16px;
+}
+.section-eyebrow.light{ color:var(--champagne); }
+
+/* ============================================================
+   PHASE 4 — WEDDING DETAILS
+   ============================================================ */
+.details{ padding:90px 20px 100px; }
+.details-card{
+  max-width:420px; margin:0 auto; text-align:center;
+}
+
+.details-flourish{
+  width:60px; margin:6px auto 18px; color:var(--burgundy); opacity:0.6;
+}
+
+.details-intro{
+  color:rgba(74,56,38,0.65); font-size:14.5px; line-height:1.7;
+  max-width:320px; margin:0 auto 40px;
+}
+
+.details-list{ list-style:none; margin:0; padding:0; text-align:left; }
+.details-list li{
+  display:flex; align-items:center; gap:16px;
+  padding:16px 0;
+  border-top:1px solid rgba(169,128,74,0.18);
+}
+.details-list li:first-child{ border-top:none; }
+.details-icon{
+  width:38px; height:38px; border-radius:50%; flex-shrink:0;
+  border:1px solid rgba(169,128,74,0.35); color:var(--burgundy);
+  display:flex; align-items:center; justify-content:center;
+}
+.details-icon svg{ width:17px; height:17px; }
+.details-list strong{
+  display:block; font-family:var(--font-display); font-size:18px; font-weight:500; color:var(--brown);
+}
+.details-list small{
+  display:block; font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:rgba(74,56,38,0.5); margin-top:2px;
+}
+
+/* ============================================================
+   PHASE 4 — COUNTDOWN
+   ============================================================ */
+.countdown{
+  background:var(--ivory); color:var(--brown);
+  padding:100px 20px; text-align:center;
+}
+.countdown-heading{
+  font-family:var(--font-display); font-style:italic; font-weight:500;
+  font-size:clamp(26px,4vw,36px); margin:0 0 48px; color:var(--brown);
+}
+
+.countdown-grid{
+  display:flex; align-items:flex-start; justify-content:center;
+  flex-wrap:wrap; gap:4px 2px;
+  max-width:560px; margin:0 auto;
+}
+.countdown-unit{
+  display:flex; flex-direction:column; align-items:center; gap:14px;
+  padding:0 6px;
+}
+.countdown-sep{
+  font-family:var(--font-display); font-size:34px; color:var(--burgundy);
+  align-self:center; margin-top:20px; opacity:0.6;
+}
+@media(max-width:480px){ .countdown-sep{ display:none; } .countdown-grid{ gap:22px 18px; } }
+
+.countdown-circle{
+  width:88px; height:88px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  border:1px solid rgba(169,128,74,0.4);
+  background:radial-gradient(circle at 35% 30%, rgba(214,190,158,0.18), transparent 65%);
+  position:relative;
+}
+.countdown-circle::before{
+  content:'';
+  position:absolute; inset:-7px;
+  border:1px solid rgba(169,128,74,0.18);
+  border-radius:50%;
+}
+@media(min-width:560px){ .countdown-circle{ width:104px; height:104px; } }
+
+.countdown-num{
+  font-family:var(--font-display); font-size:clamp(30px,5vw,42px); line-height:1; color:var(--burgundy);
+  font-variant-numeric:tabular-nums;
+}
+.countdown-label{
+  font-size:10.5px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(74,56,38,0.55);
+}
+.countdown-passed{
+  margin-top:44px; font-family:var(--font-display); font-style:italic; font-size:22px; color:var(--burgundy);
+}
+
+/* ============================================================
+   SHARED — layout + buttons (used from Phase 5 onward)
+   ============================================================ */
+.wrap-narrow{ max-width:640px; margin:0 auto; padding:0 22px; }
+
+.section-heading{
+  font-family:var(--font-display); font-style:italic; font-weight:500;
+  font-size:clamp(30px,5vw,40px); text-align:center; margin:0 0 14px;
+}
+.section-sub{
+  text-align:center; color:rgba(63,45,43,0.65); font-size:15px; margin:0 auto 8px; max-width:420px;
+}
+.optional-tag{ text-transform:none; font-weight:400; color:rgba(63,45,43,0.5); }
+
+.btn-outline{
+  display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  padding:16px 38px;
+  font-family:var(--font-body);
+  font-size:11.5px; letter-spacing:0.18em; text-transform:uppercase; font-weight:600;
+  border:1px solid var(--burgundy); color:var(--burgundy);
+  border-radius:999px; background:var(--white);
+  box-shadow:0 10px 24px -14px rgba(90,48,54,0.35);
+  transition:background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+}
+.btn-outline:hover{
+  background:var(--burgundy); color:var(--ivory);
+  box-shadow:0 14px 28px -12px rgba(90,48,54,0.5);
+  transform:translateY(-1px);
+}
+.btn-outline:active{ transform:translateY(0) scale(0.98); }
+.btn-outline:disabled{ opacity:0.45; cursor:not-allowed; pointer-events:none; transform:none; }
+.btn-outline svg{ width:13px; height:13px; transition:transform var(--dur-fast) var(--ease); flex-shrink:0; }
+.btn-outline:hover svg{ transform:translateX(3px); }
+
+/* ============================================================
+   PHASE 5 — SCHEDULE
+   ============================================================ */
+.schedule{ padding:90px 0 100px; text-align:center; }
+.timeline{ margin-top:44px; max-width:340px; margin-left:auto; margin-right:auto; text-align:left; }
+
+.timeline-row{
+  display:grid; grid-template-columns:90px 20px 1fr; align-items:center;
+  min-height:52px;
+  position:relative;
+}
+.timeline-time{
+  font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:rgba(74,56,38,0.55); font-weight:600;
+}
+.timeline-name{
+  font-size:13px; letter-spacing:0.08em; text-transform:uppercase; color:var(--brown); font-weight:600;
+}
+.timeline-dot{
+  width:7px; height:7px; border-radius:50%;
+  background:var(--burgundy); justify-self:center;
+  position:relative; z-index:1;
+}
+.timeline-row:nth-child(even) .timeline-dot{
+  background:var(--ivory); border:1.5px solid var(--burgundy);
+}
+.timeline-row::before{
+  content:'';
+  position:absolute; top:0; bottom:0; left:99px;
+  border-left:1px dotted rgba(169,128,74,0.5);
+}
+.timeline-row:first-child::before{ top:50%; }
+.timeline-row:last-child::before{ bottom:50%; }
+
+/* ============================================================
+   PHASE 5 — VENUE
+   ============================================================ */
+.venue{
+  padding:100px 20px 110px; text-align:center;
+  background:linear-gradient(180deg, var(--ivory), #F1E2DB 50%, var(--ivory));
+}
+.venue-mark{
+  width:46px; height:46px; margin:0 auto 22px; color:var(--burgundy);
+}
+.venue-name{ font-family:var(--font-display); font-style:italic; font-size:clamp(28px,4vw,36px); margin:0 0 8px; }
+.venue-address{ color:rgba(63,45,43,0.65); margin:0 0 30px; font-size:15px; }
+
+/* ============================================================
+   PHASE 6 — RSVP
+   ============================================================ */
+.rsvp{ padding:90px 0 100px; }
+.rsvp-card{
+  max-width:400px; margin:0 auto;
+  text-align:center;
+  position:relative;
+}
+.rsvp-deadline{ font-size:13px; color:rgba(74,56,38,0.55); margin:2px 0 0; }
+.rsvp-card form{ margin-top:36px; text-align:left; }
+
+.field{ margin-bottom:30px; }
+.field-label{
+  display:block; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; font-weight:600;
+  color:var(--burgundy); margin-bottom:14px;
+}
+.field input[type="text"]{
+  width:100%; border:none; border-bottom:1px solid rgba(74,56,38,0.28); border-radius:0;
+  padding:6px 2px 10px; font-family:var(--font-body); font-size:15px;
+  background:transparent; color:var(--brown);
+  transition:border-color var(--dur-fast) var(--ease);
+}
+.field input[type="text"]::placeholder{ color:rgba(74,56,38,0.35); }
+.field input[type="text"]:focus{
+  outline:none; border-color:var(--burgundy); box-shadow:0 1px 0 0 var(--burgundy);
+}
+.error-msg{ color:#8A3B2E; font-size:12.5px; margin:8px 0 0; display:none; }
+.field.has-error input{ border-color:#8A3B2E; }
+.field.has-error .error-msg{ display:block; }
+
+.radio-row{ display:flex; flex-wrap:wrap; gap:12px 28px; }
+.radio-row.guests{ gap:22px; }
+.radio-option{ position:relative; display:flex; align-items:center; }
+.radio-option input{ position:absolute; opacity:0; width:1px; height:1px; }
+.radio-option label{
+  display:flex; align-items:center; gap:9px; cursor:pointer;
+  font-size:14px; color:var(--brown);
+}
+.radio-dot{
+  width:16px; height:16px; border-radius:50%; flex-shrink:0;
+  border:1.3px solid rgba(74,56,38,0.4);
+  display:flex; align-items:center; justify-content:center;
+  transition:border-color var(--dur-fast) var(--ease);
+}
+.radio-dot::after{
+  content:''; width:8px; height:8px; border-radius:50%; background:var(--burgundy);
+  transform:scale(0); transition:transform var(--dur-fast) var(--ease);
+}
+.radio-option input:checked + label .radio-dot{ border-color:var(--burgundy); }
+.radio-option input:checked + label .radio-dot::after{ transform:scale(1); }
+.radio-option input:focus-visible + label .radio-dot{ outline:2px solid var(--burgundy); outline-offset:2px; }
+
+#guest-count-field{
+  overflow:hidden; max-height:0; opacity:0;
+  transition:max-height var(--dur-med) var(--ease), opacity var(--dur-med) var(--ease), margin var(--dur-med) var(--ease);
+}
+#guest-count-field.is-shown{ max-height:120px; opacity:1; margin-bottom:30px; }
+
+.rsvp-submit{
+  display:flex; align-items:center; justify-content:center; gap:10px;
+  width:100%; margin-top:8px;
+  padding:16px 0;
+  border:1px solid var(--burgundy); border-radius:999px;
+  background:transparent; color:var(--burgundy);
+  font-size:11.5px; letter-spacing:0.18em; text-transform:uppercase; font-weight:600;
+  transition:background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+}
+.rsvp-submit svg{ width:14px; height:14px; transition:transform var(--dur-fast) var(--ease); }
+.rsvp-submit:hover{ background:var(--burgundy); color:var(--ivory); transform:translateY(-1px); }
+.rsvp-submit:hover svg{ transform:translateX(3px); }
+.rsvp-submit:disabled{ opacity:0.5; pointer-events:none; }
+.rsvp-loading-dot{ width:6px; height:6px; border-radius:50%; background:currentColor; display:none; animation:pulse 1s infinite ease-in-out; }
+.is-loading .rsvp-loading-dot{ display:inline-block; }
+@keyframes pulse{ 0%,100%{ opacity:0.3; } 50%{ opacity:1; } }
+
+.rsvp-success{ display:none; text-align:center; }
+.rsvp-success.is-shown{ display:block; }
+.rsvp-success .heart{ width:44px; height:44px; margin:0 auto 18px; color:var(--burgundy); }
+.rsvp-success h3{ font-family:'Alex Brush', cursive; font-size:36px; font-weight:400; margin:0 0 8px; }
+.rsvp-success p{ color:rgba(74,56,38,0.6); margin:0; font-size:14.5px; }
+#rsvp-form.is-hidden{ display:none; }
+
+/* ============================================================
+   PHASE 8 — CLOSING
+   ============================================================ */
+.closing{
+  padding:90px 20px 130px; text-align:center;
+  background:var(--ivory); color:var(--brown);
+  border-top:1px solid rgba(169,128,74,0.25);
+}
+.invitation-ornament.small{ width:80px; margin:0 auto 20px; color:var(--burgundy); opacity:0.7; }
+.closing-msg{ font-size:13.5px; letter-spacing:0.08em; color:rgba(74,56,38,0.6); margin:0 0 14px; }
+.closing-names{
+  font-family:'Alex Brush', cursive; font-weight:400;
+  font-size:clamp(38px,6vw,50px); margin:0 0 12px; color:var(--brown);
+}
+.closing-names .amp{ font-family:var(--font-display); font-style:italic; font-size:0.55em; color:var(--burgundy); }
+.closing-date{ font-size:12.5px; letter-spacing:0.1em; text-transform:uppercase; color:rgba(74,56,38,0.5); margin:0; }
