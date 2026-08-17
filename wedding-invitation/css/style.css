@@ -161,756 +161,534 @@ main,
 
 
 /* ============================================================
-   OPENING
+   OPENING — LUXURY ENVELOPE
    ============================================================ */
 
 #opening{
-
   position:fixed;
-
   inset:0;
-
   z-index:100;
-
   display:flex;
-
   align-items:center;
-
   justify-content:center;
-
-  transition:
-    opacity .9s var(--ease),
-    visibility .9s var(--ease);
-
+  overflow:hidden;
+  background:#f7efe4;
+  transition:opacity .95s var(--ease), visibility .95s var(--ease);
 }
-
 
 #opening.is-open{
-
   opacity:0;
-
   visibility:hidden;
-
   pointer-events:none;
-
 }
-
 
 .opening-bg{
-
   position:absolute;
-
   inset:0;
-
   background:
-
-    radial-gradient(
-      ellipse 60% 45%
-      at 50% 10%,
-      rgba(214,190,158,.48),
-      transparent 60%
-    ),
-
-    radial-gradient(
-      ellipse 65% 50%
-      at 20% 100%,
-      rgba(233,210,206,.6),
-      transparent 65%
-    ),
-
-    radial-gradient(
-      ellipse 65% 50%
-      at 80% 100%,
-      rgba(233,210,206,.45),
-      transparent 65%
-    ),
-
-    linear-gradient(
-      180deg,
-      var(--ivory),
-      #F4E9E1 65%,
-      var(--ivory)
-    );
-
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,.72), transparent 60%),
+    linear-gradient(140deg, #eee1d1 0%, #faf4eb 45%, #f1e4d6 100%);
 }
-
 
 #envelope-btn{
-
   position:relative;
-
   z-index:2;
-
-  background:none;
-
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   border:0;
-
+  background:transparent;
   padding:0;
-
 }
-
-
-/* ============================================================
-   ENVELOPE
-   ============================================================ */
 
 .envelope{
-
   position:relative;
-
   display:block;
-
-  width:min(82vw,310px);
-
-  aspect-ratio:.62;
-
-}
-
-
-.envelope-back,
-.envelope-front{
-
-  position:absolute;
-
-  inset:0;
-
-  background:var(--white);
-
-  border:
-    1px solid
-    rgba(90,48,54,.14);
-
-  border-radius:4px;
-
+  width:min(94vw, 575px);
+  height:min(94svh, 915px);
+  min-height:620px;
+  overflow:hidden;
+  background:
+    radial-gradient(ellipse at 50% 48%, rgba(255,255,255,.34), transparent 66%),
+    repeating-radial-gradient(circle at 0 0, rgba(146,113,72,.016) 0 1px, transparent 1px 4px),
+    linear-gradient(145deg, #fbf7ef 0%, #f7efe4 62%, #f1e4d5 100%);
   box-shadow:
-    0 30px 65px -28px
-    rgba(74,56,38,.16);
-
+    0 30px 80px rgba(74,56,38,.16),
+    inset 0 0 70px rgba(169,128,74,.05);
 }
-
-
-.envelope-front{
-
-  z-index:2;
-
-  clip-path:
-    polygon(
-      0 100%,
-      50% 42%,
-      100% 100%
-    );
-
-}
-
-
-.envelope-flap{
-
-  position:absolute;
-
-  inset:0;
-
-  z-index:3;
-
-  background:
-    linear-gradient(
-      155deg,
-      #fff,
-      #FBF3EE 130%
-    );
-
-  border:
-    1px solid
-    rgba(90,48,54,.14);
-
-  clip-path:
-    polygon(
-      0 0,
-      50% 52%,
-      100% 0
-    );
-
-  transform-origin:
-    top center;
-
-  transition:
-    transform .9s var(--ease);
-
-}
-
-
-#opening.is-opening .envelope-flap{
-
-  transform:
-    rotateX(178deg);
-
-}
-
-
-/* ============================================================
-   FLOWER BRANCHES
-   ============================================================ */
-
-.sprig{
-
-  position:absolute;
-
-  width:46px;
-
-  opacity:.58;
-
-}
-
-
-.sprig-tl{
-
-  top:8px;
-
-  left:12px;
-
-}
-
-
-.sprig-tr{
-
-  top:8px;
-
-  right:12px;
-
-  transform:
-    scaleX(-1);
-
-}
-
-
-.sprig-stem{
-
-  fill:none;
-
-  stroke:var(--champagne);
-
-  stroke-width:1.4;
-
-  stroke-linecap:round;
-
-}
-
-
-.sprig-leaf{
-
-  fill:var(--champagne);
-
-  opacity:.62;
-
-}
-
-
-.sprig-bloom circle{
-
-  r:4.5px;
-
-  fill:var(--gold);
-
-  opacity:.52;
-
-}
-
-
-.envelope::before,
-.envelope::after{
-
-  content:"";
-
-  position:absolute;
-
-  z-index:5;
-
-  top:25%;
-
-  width:70px;
-
-  height:110px;
-
-  opacity:.4;
-
-  pointer-events:none;
-
-  background:
-
-    radial-gradient(
-      ellipse 11px 5px
-      at 40% 25%,
-      var(--champagne) 0 50%,
-      transparent 55%
-    ),
-
-    radial-gradient(
-      ellipse 11px 5px
-      at 60% 46%,
-      var(--gold) 0 50%,
-      transparent 55%
-    ),
-
-    radial-gradient(
-      circle 4px
-      at 45% 67%,
-      var(--blush) 0 70%,
-      transparent 75%
-    );
-
-}
-
 
 .envelope::before{
-
-  left:-18px;
-
-  transform:
-    rotate(-16deg);
-
+  content:"";
+  position:absolute;
+  inset:15px;
+  z-index:20;
+  border:1px solid rgba(169,128,74,.78);
+  pointer-events:none;
 }
-
 
 .envelope::after{
-
-  right:-18px;
-
-  transform:
-    scaleX(-1)
-    rotate(-16deg);
-
+  content:"";
+  position:absolute;
+  inset:24px;
+  z-index:20;
+  border:1px solid rgba(169,128,74,.38);
+  pointer-events:none;
 }
 
-
-/* ============================================================
-   ENVELOPE TEXT
-   ============================================================ */
-
-.envelope-eyebrow{
-
+.envelope-back{
   position:absolute;
-
-  z-index:6;
-
-  top:13%;
-
-  left:0;
-
-  right:0;
-
-  text-align:center;
-
-  font-size:10px;
-
-  letter-spacing:.14em;
-
-  line-height:1.65;
-
-  text-transform:uppercase;
-
-  color:var(--gold);
-
-  font-weight:600;
-
+  inset:0;
+  z-index:1;
+  background:
+    radial-gradient(ellipse at 50% 42%, rgba(255, 255, 255, 0.934), transparent 67%),
+    linear-gradient(145deg, #fcf8f0, #f4e8db);
 }
 
-
-.envelope-flourish{
-
+.envelope-front{
   position:absolute;
-
-  z-index:6;
-
-  top:26%;
-
-  left:50%;
-
-  width:60px;
-
-  height:15px;
-
-  transform:
-    translateX(-50%);
-
-  color:var(--champagne);
-
-}
-
-
-/* ============================================================
-   OVAL SEAL
-   ============================================================ */
-
-.envelope-seal{
-
-  position:absolute;
-
+  inset:0;
   z-index:7;
-
-  top:47%;
-
-  left:50%;
-
-  width:78px;
-
-  height:64px;
-
-  transform:
-    translate(-50%,-50%);
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  animation:
-    sealFloat 3s
-    ease-in-out infinite;
-
-  transition:
-    opacity .35s ease,
-    transform .35s ease;
-
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.16), rgba(236,224,210,.58));
+  clip-path:polygon(0 47%, 50% 72%, 100% 47%, 100% 100%, 0 100%);
+  border-top:1px solid rgba(169,128,74,.12);
 }
 
+.envelope-flap{
+  position:absolute;
+  inset:0;
+  z-index:17;
+  background:
+    linear-gradient(145deg, #fcf8f0 0%, #f8efe5 65%, #f1e4d7 100%);
+  clip-path:polygon(0 0, 50% 50.5%, 100% 0);
+  transform-origin:top center;
+  transition:transform 1.15s cubic-bezier(.77,0,.18,1);
+  backface-visibility:hidden;
+  box-shadow:0 8px 18px rgba(74,56,38,.06);
+}
+
+#opening.is-opening .envelope-flap{
+  transform:rotateX(178deg);
+}
+
+/* Top music area */
+.envelope-music{
+  position:absolute;
+  z-index:22;
+  top:8.2%;
+  left:50%;
+  width:min(70%, 360px);
+  transform:translateX(-50%);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  color:var(--gold);
+}
+
+.envelope-music-title{
+  font-family:var(--display);
+  font-style:italic;
+  font-size:clamp(21px, 4.6vw, 29px);
+  line-height:1;
+  letter-spacing:.025em;
+}
+
+.envelope-music-time{
+  margin-top:6px;
+  font-family:var(--display);
+  font-size:14px;
+  letter-spacing:.08em;
+  color:rgba(169,128,74,.74);
+}
+
+.envelope-music-line{
+  position:relative;
+  width:100%;
+  height:22px;
+  margin-top:10px;
+}
+
+.envelope-music-line::before{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  top:50%;
+  height:1px;
+  background:rgba(169,128,74,.48);
+}
+
+.envelope-music-line i{
+  position:absolute;
+  left:0;
+  top:50%;
+  width:10px;
+  height:10px;
+  transform:translate(-1px,-50%);
+  border-radius:50%;
+  background:var(--gold);
+}
+
+.envelope-music-heart{
+  margin-top:12px;
+  width:27px;
+  height:27px;
+  color:var(--gold);
+}
+
+.envelope-music-heart svg{
+  width:100%;
+  height:100%;
+}
+
+/* Botanical corners */
+.botanical-corner{
+  position:absolute;
+  z-index:23;
+  width:132px;
+  height:132px;
+  pointer-events:none;
+  opacity:.8;
+}
+
+.botanical-tl{
+  top:24px;
+  left:24px;
+}
+
+.botanical-tr{
+  top:24px;
+  right:24px;
+  transform:scaleX(-1);
+}
+
+.botanical-bl{
+  bottom:24px;
+  left:24px;
+  transform:scaleY(-1);
+}
+
+.botanical-br{
+  right:24px;
+  bottom:24px;
+  transform:scale(-1);
+}
+
+.botanical-corner svg{
+  width:100%;
+  height:100%;
+}
+
+.botanical-line{
+  fill:none;
+  stroke:rgba(151,138,111,.82);
+  stroke-width:1.05;
+  stroke-linecap:round;
+}
+
+.botanical-leaf{
+  fill:rgba(158,149,123,.68);
+}
+
+.botanical-bloom circle{
+  fill:rgba(190,164,111,.66);
+}
+
+.botanical-bloom .bloom-center{
+  fill:var(--gold);
+}
+
+/* Seal */
+.envelope-seal{
+  position:absolute;
+  z-index:26;
+  left:50%;
+  top: 54%;
+  width:106px;
+  height:90px;
+  transform:translate(-50%,-50%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  animation:sealBreath 3.6s ease-in-out infinite;
+  transition:opacity .4s ease, transform .5s var(--ease);
+}
 
 .envelope-seal svg{
-
   position:absolute;
-
   inset:0;
-
   width:100%;
-
   height:100%;
-
 }
-
 
 .seal-base{
-
-  fill:var(--gold);
-
-  filter:
-    drop-shadow(
-      0 7px 12px
-      rgba(74,56,38,.22)
-    );
-
+  fill:rgba(206, 154, 91, 0.789);
+  filter:drop-shadow(0 2px 3px rgba(74,56,38,.20));
 }
-
 
 .seal-ring{
-
   fill:none;
-
-  stroke:
-    rgba(255,255,255,.34);
-
-  stroke-width:1;
-
+  stroke:rgba(255,255,255,.42);
+  stroke-width:1.15;
 }
-
 
 .seal-inner-ring{
-
   fill:none;
-
-  stroke:
-    rgba(255,255,255,.15);
-
+  stroke:rgba(255,255,255,.18);
   stroke-width:.8;
-
 }
 
+.seal-laurel{
+  fill:none;
+  stroke:rgba(255,244,220,.55);
+  stroke-width:.8;
+  stroke-linecap:round;
+}
 
 .envelope-seal-text{
-
   position:relative;
-
   z-index:2;
-
+  color:#f9efdf;
   font-family:var(--script);
-
-  font-size:20px;
-
-  color:var(--ivory);
-
+  letter-spacing:.02em;
+  text-shadow:0 1px 1px rgba(86,54,25,.12);
 }
 
-
-@keyframes sealFloat{
-
-  0%,
-  100%{
-    transform:
-      translate(-50%,-50%)
-      scale(1);
+@keyframes sealBreath{
+  0%,100%{
+    transform:translate(-50%,-50%) scale(1);
   }
-
   50%{
-    transform:
-      translate(-50%,-50%)
-      scale(1.035);
+    transform:translate(-50%,-50%) scale(1.018);
   }
-
 }
-
 
 #opening.is-opening .envelope-seal{
-
   animation:none;
-
   opacity:0;
-
-  transform:
-    translate(-50%,-50%)
-    scale(.72);
-
+  transform:translate(-50%,-50%) scale(.78);
 }
 
-
-/* ============================================================
-   ENVELOPE NAMES
-   ============================================================ */
-
-.envelope-names{
-
-  position:absolute;
-
-  z-index:6;
-
-  top:64%;
-
-  left:0;
-
-  right:0;
-
-  text-align:center;
-
-  font-family:var(--script);
-
-  font-size:31px;
-
-  color:var(--gold);
-
-}
-
-
-.envelope-names span{
-
-  font-family:var(--display);
-
-  font-size:.72em;
-
-  margin:0 3px;
-
-}
-
-
-.envelope-card-date{
-
-  position:absolute;
-
-  z-index:6;
-
-  top:75%;
-
-  left:0;
-
-  right:0;
-
-  text-align:center;
-
-  font-size:11px;
-
-  letter-spacing:.17em;
-
-  color:var(--brown);
-
-  opacity:.68;
-
-}
-
-
-/* ============================================================
-   OPENING CUE
-   ============================================================ */
-
+/* Opening cue */
 .opening-hint{
-
   position:absolute;
-
-  z-index:6;
-
+  z-index:27;
   left:50%;
-
-  bottom:5.5%;
-
-  transform:
-    translateX(-50%);
-
+  bottom:6.2%;
+  transform:translateX(-50%);
   display:flex;
-
   flex-direction:column;
-
   align-items:center;
-
-  gap:2px;
-
   color:var(--gold);
-
+  pointer-events:none;
 }
 
+.opening-label{
+  font-family:var(--display);
+  font-size:14px;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
 
-.opening-hint .hint-line{
-
+.opening-line{
   width:1px;
-
   height:24px;
-
-  background:
-    linear-gradient(
-      to bottom,
-      transparent,
-      var(--gold)
-    );
-
-  animation:
-    hintLine 1.8s
-    ease-in-out infinite;
-
+  margin-top:16px;
+  background:linear-gradient(to bottom, transparent, var(--gold));
+  animation:openingPulse 1.9s ease-in-out infinite;
 }
-
 
 .opening-hint svg{
-
-  width:13px;
-
-  height:13px;
-
-  animation:
-    hintArrow 1.8s
-    ease-in-out infinite;
-
+  width:15px;
+  height:15px;
+  margin-top:4px;
+  animation:openingArrow 1.9s ease-in-out infinite;
 }
 
-
-@keyframes hintLine{
-
-  0%,
-  100%{
-    height:20px;
-    opacity:.4;
-  }
-
-  50%{
-    height:28px;
-    opacity:1;
-  }
-
+@keyframes openingPulse{
+  0%,100%{opacity:.38;height:19px;}
+  50%{opacity:1;height:27px;}
 }
 
-
-@keyframes hintArrow{
-
-  0%,
-  100%{
-    transform:translateY(0);
-    opacity:.45;
-  }
-
-  50%{
-    transform:translateY(4px);
-    opacity:1;
-  }
-
+@keyframes openingArrow{
+  0%,100%{opacity:.45;transform:translateY(0);}
+  50%{opacity:1;transform:translateY(4px);}
 }
 
+/* The old envelope typography is intentionally hidden: the screenshot is cleaner without it. */
+.envelope-eyebrow,
+.envelope-flourish,
+.envelope-names,
+.envelope-card-date{
+  display:none;
+}
 
 /* ============================================================
-   MUSIC
+   MUSIC TOGGLE
    ============================================================ */
 
 #music-toggle{
-
   position:fixed;
-
   z-index:110;
-
   top:18px;
-
   right:18px;
-
   width:42px;
-
   height:42px;
-
-  border:
-    1px solid
-    rgba(74,56,38,.22);
-
+  border:1px solid rgba(74,56,38,.22);
   border-radius:50%;
-
-  background:
-    rgba(255,255,255,.52);
-
+  background:rgba(255,255,255,.52);
   backdrop-filter:blur(8px);
-
   display:flex;
-
   align-items:center;
-
   justify-content:center;
-
   color:var(--brown);
-
 }
-
 
 #music-toggle svg{
-
   width:17px;
-
   height:17px;
-
 }
 
+#music-toggle .icon-on{display:none;}
+#music-toggle .icon-off{display:block;}
+#music-toggle[aria-pressed="true"] .icon-on{display:block;}
+#music-toggle[aria-pressed="true"] .icon-off{display:none;}
+#music-toggle[aria-pressed="true"]{color:var(--gold);}
 
-#music-toggle .icon-on{
+/* ============================================================
+   RESPONSIVE ENVELOPE
+   ============================================================ */
 
-  display:none;
+@media (max-width:600px){
 
+  #opening{
+    padding:9px;
+  }
+
+  #envelope-btn{
+    width:100%;
+    height:100%;
+  }
+
+  .envelope{
+    width:100%;
+    height:100%;
+    min-height:0;
+  }
+
+  .envelope::before{inset:12px;}
+  .envelope::after{inset:20px;}
+
+  .botanical-corner{
+    width:90px;
+    height:90px;
+  }
+
+  .botanical-tl,
+  .botanical-tr{top:19px;}
+
+  .botanical-bl,
+  .botanical-br{bottom:19px;}
+
+  .botanical-tl,
+  .botanical-bl{left:19px;}
+
+  .botanical-tr,
+  .botanical-br{right:19px;}
+
+  .envelope-music{
+    top:8.5%;
+    width:72%;
+  }
+
+  .envelope-music-title{
+    font-size:22px;
+  }
+
+  .envelope-music-time{
+    font-size:12px;
+  }
+
+  .envelope-music-heart{
+    width:23px;
+    height:23px;
+    margin-top:9px;
+  }
+
+  .envelope-seal{
+    width:88px;
+    height:76px;
+    top:59.6%;
+  }
+
+  .envelope-seal-text{
+    font-size:23px;
+  }
+
+  .opening-hint{
+    bottom:5.3%;
+  }
+
+  .opening-label{
+    font-size:10px;
+    letter-spacing:.25em;
+  }
+
+  .opening-line{
+    margin-top:12px;
+    height:19px;
+  }
+
+  #music-toggle{
+    top:14px;
+    right:14px;
+  }
 }
 
+@media (max-width:380px){
 
-#music-toggle .icon-off{
+  .botanical-corner{
+    width:76px;
+    height:76px;
+  }
 
-  display:block;
+  .botanical-tl,
+  .botanical-tr{top:17px;}
 
+  .botanical-bl,
+  .botanical-br{bottom:17px;}
+
+  .botanical-tl,
+  .botanical-bl{left:17px;}
+
+  .botanical-tr,
+  .botanical-br{right:17px;}
+
+  .envelope-music-title{
+    font-size:20px;
+  }
+
+  .envelope-music-time{
+    font-size:11px;
+  }
+
+  .envelope-seal{
+    width:80px;
+    height:69px;
+    top:59.5%;
+  }
+
+  .envelope-seal-text{
+    font-size:21px;
+  }
+
+  .opening-label{
+    font-size:9px;
+  }
 }
-
-
-#music-toggle[aria-pressed="true"] .icon-on{
-
-  display:block;
-
-}
-
-
-#music-toggle[aria-pressed="true"] .icon-off{
-
-  display:none;
-
-}
-
-
-#music-toggle[aria-pressed="true"]{
-
-  color:var(--gold);
-
-}
-
 
 /* ============================================================
    HERO
