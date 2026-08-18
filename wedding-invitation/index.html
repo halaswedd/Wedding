@@ -216,14 +216,70 @@
           </span>
         </span>
 
-        <!-- Wax seal -->
-        <span class="envelope-seal">
-          <svg viewBox="0 0 108 92" aria-hidden="true">
-            <ellipse class="seal-base" cx="54" cy="46" rx="49" ry="42"/>
-            <ellipse class="seal-ring" cx="54" cy="46" rx="40" ry="33"/>
-          </svg>
-          <span class="envelope-seal-text">L &K</span>
-        </span>
+       <!-- Pearl seal -->
+<span class="envelope-seal">
+
+  <svg viewBox="0 0 108 92" aria-hidden="true">
+
+    <defs>
+
+      <radialGradient
+        id="pearlGradient"
+        cx="30%"
+        cy="22%"
+        r="78%"
+      >
+        <stop offset="0%" stop-color="#ffffff"/>
+        <stop offset="20%" stop-color="#fffdf7"/>
+        <stop offset="45%" stop-color="#f4ecdf"/>
+        <stop offset="70%" stop-color="#ded2bf"/>
+        <stop offset="88%" stop-color="#c7b99f"/>
+        <stop offset="100%" stop-color="#aa9878"/>
+      </radialGradient>
+
+      <linearGradient
+        id="goldRing"
+        x1="0%"
+        y1="0%"
+        x2="100%"
+        y2="100%"
+      >
+        <stop offset="0%" stop-color="#f6dfad"/>
+        <stop offset="30%" stop-color="#b99758"/>
+        <stop offset="55%" stop-color="#ead39a"/>
+        <stop offset="100%" stop-color="#987238"/>
+      </linearGradient>
+
+    </defs>
+
+
+    <!-- Pearl body -->
+    <ellipse
+      class="seal-base"
+      cx="54"
+      cy="16"
+      rx="39"
+      ry="42"
+    />
+
+    <!-- Golden outer ring -->
+    <ellipse
+      class="seal-ring"
+      cx="54"
+      cy="16"
+      rx="30"
+      ry="33"
+    />
+
+  </svg>
+
+
+  <!-- Initials -->
+  <span class="envelope-seal-text">
+    LK
+  </span>
+
+</span>
 
         <!-- Opening cue -->
         <span class="opening-hint">
