@@ -16,7 +16,7 @@ const CONFIG = {
   },
 
   weddingDateISO:
-    "2027-06-12T17:00:00",
+  "2026-09-20T17:00:00",
 
   venueName:
     "Villa Chanaa"
@@ -31,10 +31,14 @@ const CONFIG = {
 (function envelopeOpen(){
 
   const opening =
-    document.getElementById("opening");
+    document.getElementById(
+      "opening"
+    );
 
   const button =
-    document.getElementById("envelope-btn");
+    document.getElementById(
+      "envelope-btn"
+    );
 
 
   if(!opening || !button){
@@ -45,7 +49,6 @@ const CONFIG = {
   button.addEventListener(
     "click",
     () => {
-
 
       /* Prevent double click */
 
@@ -324,7 +327,6 @@ const CONFIG = {
     "click",
     async () => {
 
-
       const playing =
         button.getAttribute(
           "aria-pressed"
@@ -486,6 +488,24 @@ const CONFIG = {
 
 
   /* ==========================================================
+     EXTRA GUEST NAMES
+     ========================================================== */
+
+  const extraGuestsContainer =
+    document.createElement("div");
+
+
+  extraGuestsContainer.id =
+    "extra-guest-names";
+
+
+  form.insertBefore(
+    extraGuestsContainer,
+    submitButton
+  );
+
+
+  /* ==========================================================
      ATTENDANCE
      ========================================================== */
 
@@ -498,7 +518,6 @@ const CONFIG = {
       input.addEventListener(
         "change",
         () => {
-
 
           const attending =
             form.querySelector(
@@ -517,6 +536,11 @@ const CONFIG = {
           );
 
 
+          /*
+            If user selects "I'm unable to attend",
+            clear guest selection and extra guest names.
+          */
+
           if(!attending){
 
             form
@@ -529,6 +553,10 @@ const CONFIG = {
                   false;
 
               });
+
+
+            extraGuestsContainer.innerHTML =
+              "";
 
 
             guestField.classList.remove(
@@ -544,7 +572,7 @@ const CONFIG = {
 
 
   /* ==========================================================
-     REMOVE ERRORS
+     REMOVE NAME ERROR
      ========================================================== */
 
   nameInput.addEventListener(
@@ -559,6 +587,10 @@ const CONFIG = {
   );
 
 
+  /* ==========================================================
+     NUMBER OF GUESTS
+     ========================================================== */
+
   form
     .querySelectorAll(
       'input[name="guests"]'
@@ -572,6 +604,92 @@ const CONFIG = {
           guestField.classList.remove(
             "has-error"
           );
+
+
+          const numberOfGuests =
+            parseInt(
+              input.value,
+              10
+            );
+
+
+          /*
+            Remove old extra guest fields
+          */
+
+          extraGuestsContainer.innerHTML =
+            "";
+
+
+          /*
+            Your Name = Guest 1
+
+            So:
+            1 guest → no extra field
+            2 guests → Guest 2 Name
+            3 guests → Guest 2 Name + Guest 3 Name
+          */
+
+          for(
+            let i = 2;
+            i <= numberOfGuests;
+            i++
+          ){
+
+            const field =
+              document.createElement(
+                "div"
+              );
+
+
+            field.className =
+              "field extra-guest-field";
+
+
+            field.innerHTML = `
+
+              <label for="guest-${i}-name">
+                Guest ${i} Name
+              </label>
+
+              <input
+                type="text"
+                id="guest-${i}-name"
+                name="guest-${i}-name"
+                placeholder="Write guest ${i} name"
+                autocomplete="off"
+              >
+
+              <p class="error-msg">
+                Please enter Guest ${i}'s name.
+              </p>
+
+            `;
+
+
+            extraGuestsContainer.appendChild(
+              field
+            );
+
+
+            const guestInput =
+              field.querySelector(
+                "input"
+              );
+
+
+            guestInput.addEventListener(
+              "input",
+              () => {
+
+                field.classList.remove(
+                  "has-error"
+                );
+
+              }
+            );
+
+          }
 
         }
       );
@@ -604,7 +722,9 @@ const CONFIG = {
       );
 
 
-    /* Name */
+    /* ========================================================
+       NAME
+       ======================================================== */
 
     const invalidName =
       name.length === 0;
@@ -623,7 +743,9 @@ const CONFIG = {
     }
 
 
-    /* Attendance */
+    /* ========================================================
+       ATTENDANCE
+       ======================================================== */
 
     const invalidAttendance =
       !attendance;
@@ -642,7 +764,9 @@ const CONFIG = {
     }
 
 
-    /* Guests */
+    /* ========================================================
+       GUESTS
+       ======================================================== */
 
     if(
       attendance &&
@@ -665,6 +789,71 @@ const CONFIG = {
 
       }
 
+
+      /* ======================================================
+         EXTRA GUEST NAMES
+         ====================================================== */
+
+      if(guests){
+
+        const numberOfGuests =
+          parseInt(
+            guests.value,
+            10
+          );
+
+
+        /*
+          Guest 1 = Your Name
+
+          Therefore only validate:
+          Guest 2
+          Guest 3
+        */
+
+        for(
+          let i = 2;
+          i <= numberOfGuests;
+          i++
+        ){
+
+          const guestInput =
+            document.getElementById(
+              `guest-${i}-name`
+            );
+
+
+          const guestFieldElement =
+            guestInput?.closest(
+              ".extra-guest-field"
+            );
+
+
+          const invalidGuestName =
+            !guestInput ||
+            guestInput.value.trim() === "";
+
+
+          if(guestFieldElement){
+
+            guestFieldElement.classList.toggle(
+              "has-error",
+              invalidGuestName
+            );
+
+          }
+
+
+          if(invalidGuestName){
+
+            valid = false;
+
+          }
+
+        }
+
+      }
+
     }
 
 
@@ -680,7 +869,6 @@ const CONFIG = {
   form.addEventListener(
     "submit",
     event => {
-
 
       /*
         IMPORTANT:
@@ -709,12 +897,89 @@ const CONFIG = {
         ).value;
 
 
+      const guests =
+        form.querySelector(
+          'input[name="guests"]:checked'
+        )?.value;
+
+
+      /*
+        Collect guest names
+
+        Guest 1 = Your Name
+      */
+
+      const guestNames = [];
+
+      if(nameInput.value.trim()){
+
+        guestNames.push(
+          nameInput.value.trim()
+        );
+
+      }
+
+
+      if(guests){
+
+        const numberOfGuests =
+          parseInt(
+            guests,
+            10
+          );
+
+
+        for(
+          let i = 2;
+          i <= numberOfGuests;
+          i++
+        ){
+
+          const guestInput =
+            document.getElementById(
+              `guest-${i}-name`
+            );
+
+
+          if(guestInput){
+
+            guestNames.push(
+              guestInput.value.trim()
+            );
+
+          }
+
+        }
+
+      }
+
+
+      /*
+        You now have:
+
+        guestNames[0] = Guest 1
+        guestNames[1] = Guest 2
+        guestNames[2] = Guest 3
+      */
+
+
+      console.log(
+        "RSVP:",
+        {
+          attendance,
+          numberOfGuests: guests,
+          guestNames
+        }
+      );
+
+
       submitButton.classList.add(
         "is-loading"
       );
 
 
-      submitButton.disabled = true;
+      submitButton.disabled =
+        true;
 
 
       submitText.textContent =
@@ -724,7 +989,6 @@ const CONFIG = {
       /* Fake submission */
 
       setTimeout(() => {
-
 
         form.classList.add(
           "is-hidden"
@@ -741,7 +1005,7 @@ const CONFIG = {
         ){
 
           successMessage.textContent =
-            "We can't wait to celebrate with you on June 12, 2027.";
+           "We can't wait to celebrate with you on September 20, 2026."; 
 
         }else{
 

@@ -3017,3 +3017,25 @@ main,
     border-radius: 0;
   }
 }
+
+/* EXTRA GUEST NAME FIELDS */
+
+#extra-guest-names{
+  width:100%;
+}
+
+.extra-guest-field{
+  margin-bottom:28px;
+}
+
+.extra-guest-field label{
+  display:block;
+  margin-bottom:8px;
+  color:var(--gold-dark);
+  font-size:12px;
+  letter-spacing:.04em;
+}
+
+.extra-guest-field input{
+  width:100%;
+}
