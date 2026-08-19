@@ -2970,3 +2970,50 @@ main,
   }
 
 }
+
+/* ============================================================
+   FINAL MOBILE FIX — FULL SCREEN ENVELOPE
+   ============================================================ */
+
+@media screen and (max-width: 600px) {
+
+  html,
+  body {
+    width: 100%;
+    min-width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  #opening {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100dvh;
+    min-width: 100vw;
+    min-height: 100dvh;
+    padding: 0 !important;
+    margin: 0;
+  }
+
+  #envelope-btn {
+    width: 100vw;
+    height: 100dvh;
+    min-width: 100vw;
+    min-height: 100dvh;
+    padding: 0;
+    margin: 0;
+  }
+
+  .envelope {
+    width: 100vw !important;
+    height: 100dvh !important;
+    min-width: 100vw !important;
+    min-height: 100dvh !important;
+    max-width: none !important;
+    max-height: none !important;
+    margin: 0;
+    border-radius: 0;
+  }
+}
